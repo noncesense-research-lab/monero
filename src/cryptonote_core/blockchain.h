@@ -310,7 +310,25 @@ namespace cryptonote
      *
      * @return true on successful addition to the blockchain, else false
      */
-    bool add_new_block(const block& bl_, block_verification_context& bvc);
+    // archive: block handler
+    bool add_new_block(const block& bl_, block_verification_context& bvc, std::pair<uint64_t,uint64_t> archive_sync_state);
+
+    // archive: program
+    /**
+     * @copydoc Blockchain::archive_block
+     */
+    void archive_block(block& b, bool is_alt_block, std::pair<uint64_t,uint64_t> archive_sync_state);
+
+    /**
+    * @copydoc Blockchain::archive_alt_chain_info
+    */
+    std::pair<uint64_t,std::string> archive_alt_chain_info();
+
+    /**
+     * @copydoc Blockchain::archive_output_filename
+     */
+    std::string archive_output_filename();
+    // archive: end program
 
     /**
      * @brief clears the blockchain and starts a new one

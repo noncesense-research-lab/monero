@@ -1363,7 +1363,10 @@ namespace cryptonote
       m_miner.resume();
       return false;
     }
-    m_blockchain_storage.add_new_block(b, bvc);
+    // archive: IsNodeSynced?1
+    std::pair<uint64_t,uint64_t> archive_sync_state = std::make_pair(get_current_blockchain_height(), get_target_blockchain_height());
+    m_blockchain_storage.add_new_block(b, bvc, archive_sync_state);
+
     cleanup_handle_incoming_blocks(true);
     //anyway - update miner template
     update_miner_block_template();
@@ -1409,7 +1412,9 @@ namespace cryptonote
   //-----------------------------------------------------------------------------------------------
   bool core::add_new_block(const block& b, block_verification_context& bvc)
   {
-    return m_blockchain_storage.add_new_block(b, bvc);
+    // archive: IsNodeSynced?2
+    std::pair<uint64_t,uint64_t> archive_sync_state = std::make_pair(get_current_blockchain_height(), get_target_blockchain_height());
+    return m_blockchain_storage.add_new_block(b, bvc, archive_sync_state);
   }
 
   //-----------------------------------------------------------------------------------------------
