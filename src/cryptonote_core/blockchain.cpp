@@ -4191,7 +4191,7 @@ std::pair<uint64_t,std::string> Blockchain::archive_alt_chain_info()
   ++height_without_bootstrap; // turn top block height into blockchain height
 
   // rpc_get_alternate_chains
-  std::list<std::pair<Blockchain::block_extended_info, std::vector<crypto::hash>>> chains = get_alternative_chains();
+  std::vector<std::pair<Blockchain::block_extended_info, std::vector<crypto::hash>>> chains = get_alternative_chains();
   uint64_t altchains_length = boost::lexical_cast<uint64_t>(chains.size());
 
   // serialize altchains
